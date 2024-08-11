@@ -3,16 +3,16 @@ provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
-resource "kubernetes_namespace" "shira-terraform3" {
+resource "kubernetes_namespace" "shira-terraform-nginx" {
   metadata {
-    name = "shira-terraform3"
+    name = "shira-terraform-nginx"
   }
 }
 
 resource "kubernetes_deployment" "nginx" {
   metadata {
     name      = "nginx-deployment"
-    namespace = kubernetes_namespace.shira-terraform2.metadata[0].name
+    namespace = kubernetes_namespace.shira-terraform-nginx.metadata[0].name
     labels = {
       app = "nginx"
     }
@@ -65,7 +65,7 @@ resource "kubernetes_deployment" "nginx" {
 resource "kubernetes_service" "nginx" {
   metadata {
     name      = "nginx-service"
-    namespace = kubernetes_namespace.shira-terraform3.metadata[0].name
+    namespace = kubernetes_namespace.shira-terraform-nginx.metadata[0].name
   }
 
   spec {
@@ -83,7 +83,7 @@ resource "kubernetes_service" "nginx" {
 resource "kubernetes_ingress" "nginx" {
   metadata {
     name      = "nginx-ingress"
-    namespace = kubernetes_namespace.shira-terraform3.metadata[0].name
+    namespace = kubernetes_namespace.shira-terraform-nginx.metadata[0].name
     annotations = {
       "nginx.ingress.kubernetes.io/rewrite-target" = "/"
     }
@@ -109,7 +109,7 @@ resource "kubernetes_ingress" "nginx" {
 resource "kubernetes_config_map" "example" {
   metadata {
     name      = "example-configmap"
-    namespace = kubernetes_namespace.shira-terraform3.metadata[0].name
+    namespace = kubernetes_namespace.shira-terraform-nginx.metadata[0].name
   }
 
   data = {

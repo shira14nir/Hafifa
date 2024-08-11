@@ -11,3 +11,9 @@
 	nginx-deployment   2/2     2            2           66s
 	`kubectl get services -n shira-terraform2`
 	nginx-service   ClusterIP   10.103.103.216   <none>        80/TCP    89s
+6. added ingress
+`kubectl port-forward svc/nginx-service 8080:80 -n shira-terraform-nginx`
+Forwarding from 127.0.0.1:8080 -> 80
+Forwarding from [::1]:8080 -> 80
+Handling connection for 8080
+Handling connection for 8080
