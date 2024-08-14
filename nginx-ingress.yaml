@@ -5,9 +5,8 @@ metadata:
   namespace: shira
   annotations:
 spec:
-  rules:
-  - host: "*.example.com"  
-    http:
+  rules:  
+  - http:
       paths:
       - path: /
         pathType: Prefix
